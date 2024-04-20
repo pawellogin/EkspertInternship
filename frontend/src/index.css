@@ -1,0 +1,148 @@
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* display: flex;
+    flex-direction: column; */
+    min-height: 100vh;
+}
+  
+.App {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    padding: 1rem 0.5rem;
+}
+
+section {
+    width: 100%;
+    max-width: 420px;
+    /* min-height: 400px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    padding: 1rem;
+    background-color: rgba(0,0,0,0);
+    margin: auto;
+}
+
+section.profilePage {
+    background-color: lightgray;
+    border-radius: 16px;
+    margin-top: 16px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    padding-bottom: 1rem;
+}
+
+label,
+button {
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.5rem;
+}
+
+.instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background: #000;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+}
+
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+}
+
+.instructions {
+    font-size: 0.75rem;
+    border-radius: 0.5rem;
+    background: #000;
+    color: #fff;
+    padding: 0.25rem;
+    position: relative;
+    bottom: -10px;
+}
+
+.instructions > svg {
+    margin-right: 0.25rem;
+}
+
+.offscreen {
+    position: absolute;
+    left: -9999px;
+}
+
+.hide {
+    display: none;
+}
+
+.valid {
+    color: limegreen;
+    margin-left: 0.25rem;
+}
+
+.invalid {
+    color: red;
+    margin-left: 0.25rem;
+}
+
+.line {
+    display: inline-block;
+}
+
+.alert {
+    margin: 0;
+}
+
+.card-columns {
+    display: flex;
+    flex-direction: column; /* Display cards in a column */
+    align-items: stretch; /* Ensure cards stretch to fill container width */
+}
+
+.card {
+width: 100%; /* Take up full width */
+margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+.btn-container {
+width: 100%;
+display: flex;
+justify-content: space-between;
+}
+
+.current-page-number {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-edit-container {
+    margin: 16px;
+}
