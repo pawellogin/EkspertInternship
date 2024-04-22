@@ -45,8 +45,6 @@ function App() {
           <Route exact path="/manageProducts" element={<ProductPage/>}/>
           <Route exact path="/manageUsers" element={<ManageUsers/>}/>
           <Route exact path="/manageProducts/addNewProduct" element={<AddProductForm/>}/>
-          
-          {/* <Route exact path="/productsList" />  */}
           </Routes>
         </Layout>
       </div>

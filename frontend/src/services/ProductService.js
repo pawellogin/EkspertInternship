@@ -19,6 +19,26 @@ class ProductService {
             }
         });
     }
+
+    async PostProduct(image, name, price, stock) {
+        const userToken = AuthHeader().Authorization;
+        try {
+            const response = await axios.post(API_URL + "products", {
+                image: image,
+                name: name,
+                price: price,
+                stock: stock
+            }, {
+                headers: {
+                    Authorization: userToken
+                }  
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error creating product', error);
+            throw error;
+        }
+    }
 }
 
 export default new ProductService;

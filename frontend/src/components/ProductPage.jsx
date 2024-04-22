@@ -3,6 +3,8 @@ import ProductService from "../services/ProductService"
 import AuthHeader from '../services/AuthHeader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+
 
 
 
@@ -51,7 +53,7 @@ const ProductPage = () => {
         <section>
             <h2>Product Page</h2>
             <div className="product-edit-container">
-                <button type="button" className="btn btn-secondary" onClick={changeToPreviousPage}>Add New Product</button>
+                <Link type="button" className="btn btn-secondary" to="/manageProducts/addNewProduct">Add New Product</Link>
             </div>
 
             <div className='container'>
