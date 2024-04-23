@@ -1,5 +1,6 @@
 package com.example.security.user.impl;
 
+import com.example.security.product.ProductEntity;
 import com.example.security.user.User;
 import com.example.security.user.UserRepository;
 import com.example.security.user.UserService;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,4 +31,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
+    @Override
+    public Optional<User> findOne(Long id) {
+        return userRepository.findById(id);
+    }
 }
