@@ -1,22 +1,30 @@
 import axios from "axios"
+import AuthHeader from "./AuthHeader";
 
 const API_URL = "http://localhost:8080/api/v1/"
 
 class UserService {
-    getPublicContent() {
-        return axios.get(API_URL + 'users');
-    }
 
-    getAllUsers() {
-      return axios.get(API_URL + 'users');
-    }
-
-    getUserBoard() {
-        return axios.get(API_URL + 'user', { headers: authHeader() });
+  getUsersPage(pageNumber, pageSize) {
+    const userToken = AuthHeader().Authorization;
+    return axios.get(API_URL + "users", {
+      headers: {
+        Authorization: userToken
+      },
+      params: {
+        page: pageNumber,
+        size: pageSize
       }
-    
-    getAdminBoard() {
-      return axios.get(API_URL + 'admin', { headers: authHeader() });
+    });
+  }
+
+  getUser(userId) {
+    const userToken = AuthHeader().Authorization;
+    return axios.get(API_URL + "users/" + userId, {
+      headers: {
+        Authorization: userToken
+      }
+    })
     }
 }
 

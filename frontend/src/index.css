@@ -146,3 +146,11 @@ justify-content: space-between;
 .product-edit-container {
     margin: 16px;
 }
+
+.user-edit-container {
+    margin: 16px;
+}
+
+.UsersPage-cards-container{
+    min-height: 568px;
+}
