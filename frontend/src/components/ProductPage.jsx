@@ -13,12 +13,12 @@ import { Link } from 'react-router-dom';
 const ProductPage = () => {
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const productsPerPage = 3;
+    const [productsPerPage, setProductsPerPage] = useState(5);
 
     const fetchData = async () => {
         try {
           const response = await ProductService.GetProductsPage(currentPage - 1, productsPerPage);
-        //   console.log(response.data.content); // Access the data from the response object
+        //   console.log(response.data.content);
           setProducts(response.data.content);
         } catch (error) {
           console.error('Error fetching products:', error);
@@ -41,7 +41,7 @@ const ProductPage = () => {
 
     useEffect(() => {
         fetchData();
-    }, [currentPage]);
+    }, [currentPage, productsPerPage]);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -52,8 +52,26 @@ const ProductPage = () => {
     return (
         <section>
             <h2>Product Page</h2>
-            <div className="product-edit-container">
+            <div className="productPage-buttons-container">
                 <Link type="button" className="btn btn-secondary" to="/manageProducts/addNewProduct">Add New Product</Link>
+                
+                <div className="dropdown">
+                    <button
+                        className="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        id="productsPerPage"
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        >
+                            Products Per Page
+                    </button>
+                    <div className="dropdown-menu" aria-labelledby='productsPerPage'>
+                        <button className="dropdown-item" type='button' onClick={() => setProductsPerPage(5)}>5</button>
+                        <button className="dropdown-item" type='button' onClick={() => setProductsPerPage(10)}>10</button>
+                        <button className="dropdown-item" type='button' onClick={() => setProductsPerPage(30)}>30</button>
+                    </div>
+                </div>
             </div>
 
             <div className='container'>
