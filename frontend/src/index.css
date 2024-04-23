@@ -157,3 +157,15 @@ justify-content: space-between;
 .UsersPage-cards-container{
     min-height: 568px;
 }
+
+.ProductPage-search-bar {
+    display: flex;
+    margin-top: 16px;
+    justify-content: center;
+    align-items: center;
+}
+
+.ProductPage-search-bar .btn{
+    margin: 0px;
+    margin-left: 4px;
+}
