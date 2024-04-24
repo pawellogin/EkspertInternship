@@ -57,7 +57,7 @@ const UsersPage = () => {
             <div className='container'>
                 <div className='card-columns UsersPage-cards-container '>
                 {users && users.map(user => (
-                        <Link to={`${user.id}`} key={user.id} className="card">
+                        <Link to={`${user.id}`} key={user.id} className="card UserPage-card-link">
                             <div className="card-body">
                                 <h5 className="card-title">{user.username}</h5>
                                 <p className="card-text">Role: {user.userRole}</p>

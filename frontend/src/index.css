@@ -24,7 +24,7 @@ body {
 
 section {
     width: 100%;
-    max-width: 420px;
+    max-width: 620px;
     /* min-height: 400px; */
     display: flex;
     flex-direction: column;
@@ -168,4 +168,14 @@ justify-content: space-between;
 .ProductPage-search-bar .btn{
     margin: 0px;
     margin-left: 4px;
+}
+
+.UserPage-card-link {
+    text-decoration: none;
+    transition: transform 0.15s ease, background-color 0.15 s ease;
+}
+
+.UserPage-card-link:hover {
+    background-color: lightgray;
+    transform: scale(1.02);
 }
