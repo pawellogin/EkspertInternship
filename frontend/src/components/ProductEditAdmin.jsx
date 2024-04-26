@@ -2,8 +2,9 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useState } from 'react';
 import ProductService from '../services/ProductService';
+import '../styles/ProductEditAdmin.css'
 
-function ProductPageEdit() {
+function ProductEditAdmin() {
     
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
@@ -23,7 +24,7 @@ function ProductPageEdit() {
     }, []);
 
   return (
-    <section>
+    <section className='product-edit-admin'>
     <h2>Products Page</h2>
 
     <div className='container'>
@@ -43,4 +44,4 @@ function ProductPageEdit() {
   )
 }
 
-export default ProductPageEdit
+export default ProductEditAdmin

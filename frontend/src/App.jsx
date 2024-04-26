@@ -12,7 +12,7 @@ import UsersPage from './components/UsersPage';
 import ProductPageAdd from './components/AddProductForm';
 import UserPage from './components/UserPage';
 import ProductsPageAdmin from './components/ProductsPageAdmin';
-import ProductPageAdmin from './components/ProductPageAdmin';
+import ProductEditAdmin from './components/ProductEditAdmin';
 
 function App() {
 
@@ -31,7 +31,7 @@ function App() {
           <Route exact path="" element={<Welcome/>}/>
           <Route exact path="/profile" element={<LoggedUserInformation/>}/>
           <Route exact path="/manageProducts" element={<ProductsPageAdmin/>}/>
-          <Route path="manageProducts/:productId" element={<ProductPageAdmin/>}/>;
+          <Route path="manageProducts/:productId" element={<ProductEditAdmin/>}/>;
           <Route exact path="/manageUsers" element={<UsersPage/>}/>
           <Route path="manageUsers/:userId" element={<UserPage/>}/>
           <Route exact path="/manageProducts/addNewProduct" element={<ProductPageAdd/>}/>
