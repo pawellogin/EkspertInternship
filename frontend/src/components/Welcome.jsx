@@ -1,26 +1,28 @@
 import { DemoService } from "../services/DemoService"
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import AuthService from "../services/AuthService";
 
 const Welcome = () => {
-    const [stringValue, setStringValue] = useState("");
-  
-    useEffect(() => {
-      async function fetchData() {
-        try {
-          const data = await DemoService(); // Assuming getStringValue returns a Promise
-          setStringValue(data); // Assuming getStringValue returns the string value
-        } catch (error) {
-          console.error("Error fetching string value:", error);
-        }
-      }
-  
-      fetchData();
-    }, []);
-  
+
+
+
+  const isUserLoggedIn = AuthService.checkIsUserLoggedIn();
+
     return (
-      <div>
-        <p>{stringValue}</p>
-      </div>
+      <section className="WelcomePage-section">
+        {isUserLoggedIn ? (
+          <>
+          <p>Welcome</p>
+          </>
+        ) : (
+          <>
+          <h1>Welcome, please login or register:</h1>
+          <Link type="button" className="btn btn-secondary" to="/login">Login</Link>
+          <Link type="button" className="btn btn-secondary" to="/register">Register</Link>
+          </>
+        )}
+      </section>
     );
   };
 

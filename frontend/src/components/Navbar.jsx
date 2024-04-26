@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import AuthService from '../services/AuthService'; // Import AuthService
 
-const Navbar = () => {
+const Navbar = ({ onLogout }) => {
     const [currentUser, setCurrentUser] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const user = AuthService.getCurrentUser();
         setCurrentUser(user); // Set current user when component mounts
     }, []);
-
-    const handleLogout = () => {
-        AuthService.logout();
-        setCurrentUser(null); // Update current user state
-    };
+  
 
     const getRoles = () => {
       const currentUser = AuthService.getCurrentUser();
@@ -37,10 +34,10 @@ const Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              {currentUser ? (
+              {AuthService.getCurrentUser() ? (
                 <>
                   <li className="nav-item">
-                    <Link className="nav-link text-light" to="/profile">{currentUser.username}</Link>
+                    <Link className="nav-link text-light" to="/profile">{AuthService.getCurrentUserUsername()}</Link>
                   </li>
                   {getRoles() === 'ROLE_ADMIN' && (
                     <>
@@ -54,7 +51,7 @@ const Navbar = () => {
                   )}
                   
                   <li className="nav-item">
-                    <Link className="nav-link text-light" onClick={handleLogout}>Logout</Link>
+                    <Link className="nav-link text-light" onClick = {onLogout} to="/login" >Logout</Link>
                   </li>
                 </>
               ) : (

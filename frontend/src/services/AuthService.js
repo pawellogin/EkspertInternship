@@ -1,4 +1,5 @@
 import axios from "axios"
+import { jwtDecode } from "jwt-decode";
 
 const API_URL = "http://localhost:8080/api/v1/auth/"
 
@@ -18,6 +19,7 @@ class AuthService {
 
     logout() {
         localStorage.removeItem("user");
+        console.log("logout in service");
     }
 
     register(username, password, firstName, lastName) {
@@ -30,7 +32,12 @@ class AuthService {
     }
 
     getCurrentUser() {
-        return JSON.parse(localStorage.getItem('user'));
+        const currentUser = JSON.parse(localStorage.getItem('user'));
+        if(currentUser) {
+            return currentUser
+        }else {
+            return null;
+        }
     }
 
     getCurrentUserRole() {
@@ -39,10 +46,39 @@ class AuthService {
             const role = currentUser.authorities[0].authority;
             return role;
         } else {
-            console.log("No authorities found for the current user.");
-            return null;
+            console.log("No authorities found for the current user");
+            return false;
         }
     }
+
+    getCurrentUserUsername() {
+        const currentUser = this.getCurrentUser();
+        if (currentUser && currentUser.username) {
+            const username = currentUser.username;
+            return username;
+        } else {
+            console.log("No username found for the current user");
+            return false;
+        }
+    }
+
+    checkIsUserLoggedIn() {
+        const currentUser = JSON.parse(localStorage.getItem('user'));
+        if(!currentUser){
+          return false;
+        }else if(currentUser.token){
+            const decodedToken = jwtDecode(currentUser.token);
+            const currentDate = new Date();
+
+            if(decodedToken.exp * 1000 < currentDate.getTime()) {
+                return false;
+            }else{
+                return true;
+            }
+        }else {
+          return false;
+        }
+      }
 }
 
 export default new AuthService();

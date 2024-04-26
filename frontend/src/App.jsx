@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import * as React from "react";
+import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
 import Welcome from './components/Welcome';
@@ -17,26 +18,15 @@ import ProductPageAdmin from './components/ProductPageAdmin';
 
 function App() {
 
-
-  const testLogin = async () => {
-    try {
-      // Call AuthService.login method to perform login
-      const response = await AuthService.login('jon94', '1234');
-      console.log('Login successful:', response);
-    } catch (error) {
-      console.error('Login failed:', error);
-    }
-  };
-
-
-  const testAuthGetUser = async () => {
-    const response = await AuthService.getCurrentUser();
+  const handleLogout = () => {
+    AuthService.logout();
+    console.log("handel logout in app");
   }
 
   return (
     <Router>
       <div>
-        <Layout>
+        <Layout onLogout = {handleLogout}>
           <Routes>
           <Route exact path="/login" element={<LoginForm />} />
           <Route exact path="/register" element={<Register />} />

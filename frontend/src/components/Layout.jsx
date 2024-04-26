@@ -4,10 +4,10 @@ import Header from './Header';
 import Footer from './Footer';
 
 
-function Layout({ children }) {
+function Layout({ children, onLogout }) {
   return (
     <div>
-      <Navbar />
+      <Navbar onLogout = {onLogout} />
       {children}
       {/*   <Footer /> */}
     </div>
