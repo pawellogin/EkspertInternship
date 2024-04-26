@@ -1,0 +1,27 @@
+/* Base styles */
+.welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 900px;
+}
+
+/* Module styles */
+.welcome-title {
+    max-width: 100%; /* Ensures the title doesn't exceed the width of its container */
+    margin: 0 auto; /* Centers the title horizontally within its container */
+    min-width: unset; /* Resets the min-width property */
+}
+
+.welcome-links {
+    display: flex;
+    justify-content: center;
+}
+
+.welcome-login-link,
+.welcome-register-link {
+    margin: 10px 10px;
+}
+
+  
