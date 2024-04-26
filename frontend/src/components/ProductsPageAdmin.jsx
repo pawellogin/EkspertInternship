@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import ProductService from "../services/ProductService"
-import AuthHeader from '../services/AuthHeader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import '../styles/ProductPageAdmin.css'
 
 const ProductPage = () => {
     const [products, setProducts] = useState([]);
@@ -84,11 +84,15 @@ const ProductPage = () => {
 
 
     return (
-        <section>
-            <h2>Product Page</h2>
-            <div className="productPage-buttons-container">
-                <Link type="button" className="btn btn-secondary" to="/manageProducts/addNewProduct">Add New Product</Link>
+        <section className='products-page-admin'>
+            <h1 className='products-page-admin-title'>Product Page</h1>
 
+            <div className="products-page-admin-container-buttons">
+                <div>
+                    <Link type="button" className="btn btn-secondary" to="/manageProducts/addNewProduct">Add New Product</Link>
+                </div>
+
+                
                 <div className="dropdown">
                     <button
                         className="btn btn-secondary dropdown-toggle"
@@ -107,7 +111,7 @@ const ProductPage = () => {
                     </div>
                 </div>
 
-                <div className="search-bar ProductPage-search-bar">
+                <div>
                     <input
                         type="text"
                         placeholder="Search products..."
@@ -118,10 +122,10 @@ const ProductPage = () => {
                 </div>
             </div>
 
-            <div className='container'>
+            <div className='container products-page-admin-containers-items'>
                 <div className="card-columns">
                     {products.map(product => (
-                        <Link key={product.id} to={`${product.id}`} className="card ProductPageAdmin-card-link">
+                        <Link key={product.id} to={`${product.id}`} className="card products-page-admin-product">
                             <div className="card-body">
                                 <h5 className="card-title">{product.name}</h5>
                                 <p className="card-text">Price: ${product.price}</p>
@@ -129,7 +133,7 @@ const ProductPage = () => {
                             </div>
                         </Link>
                     ))}
-                    <div className="btn-container">
+                    <div className="products-page-admin-navigation">
                         <button type="button" className="btn btn-secondary" onClick={changeToPreviousPage}><FontAwesomeIcon icon={faArrowLeft} /></button>
                         <div className='current-page-number btn btn-secondary' onClick={changeToPageOne}>{currentPage}</div> 
                         <button type="button" className="btn btn-secondary" onClick={changeToNextPage}><FontAwesomeIcon icon={faArrowRight} /></button>                
