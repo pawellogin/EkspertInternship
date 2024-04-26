@@ -8,24 +8,21 @@
 }
 
 body {
-    /* display: flex;
-    flex-direction: column; */
     min-height: 100vh;
 }
   
-.App {
+/* .App {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh; 
     padding: 1rem 0.5rem;
-}
+} */
 
-section {
+/* section {
     width: 100%;
     max-width: 620px;
-    /* min-height: 400px; */
     display: flex;
     flex-direction: column;
     justify-content: center; 
@@ -33,7 +30,7 @@ section {
     padding: 1rem;
     background-color: rgba(0,0,0,0);
     margin: auto;
-}
+} */
 
 section.profilePage {
     background-color: lightgray;
