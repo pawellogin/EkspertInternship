@@ -1,0 +1,15 @@
+.logged-user-information{
+    width: 100%;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    padding: 1rem;
+    margin: auto;
+    background-color: lightgray;
+    border-radius: 16px;
+    margin-top: 16px;
+}
+
+
