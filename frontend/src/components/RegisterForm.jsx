@@ -90,7 +90,9 @@ const RegisterForm = () => {
             onChange={(e) => setLastName(e.target.value)}
           />
 
-        <button className='btn btn-secondary' type="submit">Register</button>
+          <div className='register-form-submit-button-container'>
+            <button className='btn btn-secondary' type="submit">Register</button>
+          </div>
       </form>
     </section>
   );

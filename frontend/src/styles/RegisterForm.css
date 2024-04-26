@@ -9,3 +9,11 @@
     padding: 1rem;
     margin: auto;
 }
+
+
+
+.register-form-submit-button-container {
+    display: flex;
+    justify-content: center;
+    margin: 8px;
+}

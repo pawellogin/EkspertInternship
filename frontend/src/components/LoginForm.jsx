@@ -33,7 +33,7 @@ const LoginForm = () => {
     <section className='login-form'>
       <h1 className='login-form-title'> Login</h1>
       {error && <div className='alert alert-danger' role='alert' >{error}</div>}
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} className='login-form-form'>
           <label htmlFor="username">Username:</label>
           <input
             className='form-control'
@@ -50,7 +50,9 @@ const LoginForm = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        <button className='btn btn-secondary' type="submit">Login</button>
+          <div className='login-form-submit-button-container'>
+            <button className='btn btn-secondary ' type="submit">Login</button>
+          </div>
       </form>
     </section>
   );
