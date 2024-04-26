@@ -8,7 +8,7 @@ import Welcome from './components/Welcome';
 import AuthService from './services/AuthService';
 import LoginForm from './components/LoginForm';
 import Profile from './components/Profile';
-import Register from './components/Register';
+import RegisterForm from './components/RegisterForm';
 import UsersPage from './components/UsersPage';
 import ProductPageAdd from './components/AddProductForm';
 import UserPage from './components/UserPage';
@@ -29,7 +29,7 @@ function App() {
         <Layout onLogout = {handleLogout}>
           <Routes>
           <Route exact path="/login" element={<LoginForm />} />
-          <Route exact path="/register" element={<Register />} />
+          <Route exact path="/register" element={<RegisterForm />} />
           <Route exact path="" element={<Welcome/>}/>
           <Route exact path="/profile" element={<Profile/>}/>
           <Route exact path="/manageProducts" element={<ProductsPageAdmin/>}/>
