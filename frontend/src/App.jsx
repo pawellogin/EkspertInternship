@@ -11,10 +11,9 @@ import Register from './components/Register';
 import UsersPage from './components/UsersPage';
 import ProductPageAdd from './components/AddProductForm';
 import UserPage from './components/UserPage';
-
-
 import {NextUIProvider} from "@nextui-org/react";
-import ProductPage from './components/ProductPage';
+import ProductsPageAdmin from './components/ProductsPageAdmin';
+import ProductPageAdmin from './components/ProductPageAdmin';
 
 function App() {
 
@@ -43,7 +42,8 @@ function App() {
           <Route exact path="/register" element={<Register />} />
           <Route exact path="" element={<Welcome/>}/>
           <Route exact path="/profile" element={<Profile/>}/>
-          <Route exact path="/manageProducts" element={<ProductPage/>}/>
+          <Route exact path="/manageProducts" element={<ProductsPageAdmin/>}/>
+          <Route path="manageProducts/:productId" element={<ProductPageAdmin/>}/>;
           <Route exact path="/manageUsers" element={<UsersPage/>}/>
           <Route path="manageUsers/:userId" element={<UserPage/>}/>
           <Route exact path="/manageProducts/addNewProduct" element={<ProductPageAdd/>}/>

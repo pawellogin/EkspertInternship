@@ -6,7 +6,7 @@ const API_URL = "http://localhost:8080/api/v1/"
 
 class ProductService {
 
-    async GetProductsPage(pageNumber, pageSize){
+    async getProductsPage(pageNumber, pageSize){
         const userToken = AuthHeader().Authorization;
         return axios.get(API_URL + "products", {
             headers: {
@@ -20,7 +20,16 @@ class ProductService {
         });
     }
 
-    async PostProduct(image, name, price, stock) {
+    async getProduct(productId) {
+        const userToken = AuthHeader().Authorization;
+        return axios.get(API_URL + "products/" + productId, {
+            headers: {
+                Authorization: userToken
+            }
+        })
+    }
+
+    async postProduct(image, name, price, stock) {
         const userToken = AuthHeader().Authorization;
         try {
             const response = await axios.post(API_URL + "products", {

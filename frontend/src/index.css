@@ -172,10 +172,20 @@ justify-content: space-between;
 
 .UserPage-card-link {
     text-decoration: none;
-    transition: transform 0.15s ease, background-color 0.15 s ease;
+    transition: transform 0.15s ease, background-color 0.15s ease;
 }
 
 .UserPage-card-link:hover {
+    background-color: lightgray;
+    transform: scale(1.02);
+}
+
+.ProductPageAdmin-card-link{
+    text-decoration: none;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.ProductPageAdmin-card-link:hover {
     background-color: lightgray;
     transform: scale(1.02);
 }

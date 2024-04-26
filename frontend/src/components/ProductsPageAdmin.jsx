@@ -13,7 +13,7 @@ const ProductPage = () => {
 
     const fetchDataByPage = async () => {
         try{
-            const response = await ProductService.GetProductsPage(currentPage - 1, productsPerPage);
+            const response = await ProductService.getProductsPage(currentPage - 1, productsPerPage);
             setProducts(response.data.content);   
             // console.log("fetch page data");            
         } catch (error) {
@@ -23,7 +23,7 @@ const ProductPage = () => {
 
     const fetchDataAll = async () => {
         try{
-            const response = await ProductService.GetProductsPage(0, 0);
+            const response = await ProductService.getProductsPage(0, 0);
             setProducts(response.data.content);
             console.log("fetch all data");
         }catch(error) {
@@ -33,7 +33,7 @@ const ProductPage = () => {
 
     const fetchDataAllAndFilter = async () => {
         try{
-            const response = await ProductService.GetProductsPage(0,0);
+            const response = await ProductService.getProductsPage(0,0);
             const allProducts = response.data.content;
             setProducts(allProducts);
 
@@ -121,13 +121,13 @@ const ProductPage = () => {
             <div className='container'>
                 <div className="card-columns">
                     {products.map(product => (
-                        <div key={product.id} className="card">
+                        <Link key={product.id} to={`${product.id}`} className="card ProductPageAdmin-card-link">
                             <div className="card-body">
                                 <h5 className="card-title">{product.name}</h5>
                                 <p className="card-text">Price: ${product.price}</p>
                                 <p className="card-text">Stock: {product.stock}</p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                     <div className="btn-container">
                         <button type="button" className="btn btn-secondary" onClick={changeToPreviousPage}><FontAwesomeIcon icon={faArrowLeft} /></button>
