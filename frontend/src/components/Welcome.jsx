@@ -5,9 +5,7 @@ import AuthService from "../services/AuthService";
 import '../styles/Welcome.css'
 
 const Welcome = () => {
-
-
-
+  
   const isUserLoggedIn = AuthService.checkIsUserLoggedIn();
 
     return (

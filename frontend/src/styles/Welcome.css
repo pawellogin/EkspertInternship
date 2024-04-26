@@ -2,9 +2,11 @@
 .welcome {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 900px;
+    justify-content: center; 
+    align-items: center; 
+    padding: 1rem;
+    margin: auto;
+    width: 100%;
 }
 
 /* Module styles */
