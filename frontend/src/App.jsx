@@ -13,6 +13,7 @@ import AddProductAdmin from './components/AddProductAdmin';
 import UserEditAdmin from './components/UserEditAdmin';
 import ProductsPageAdmin from './components/ProductsPageAdmin';
 import ProductEditAdmin from './components/ProductEditAdmin';
+import ProductListDetails from './components/ProductListDetails';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
           <Route exact path="/manageUsers" element={<UsersPageAdmin/>}/>
           <Route path="manageUsers/:userId" element={<UserEditAdmin/>}/>
           <Route exact path="/manageProducts/addNewProduct" element={<AddProductAdmin/>}/>
+          <Route path="products/:productId" element={<ProductListDetails/>}/>
           </Routes>
         </Layout>
       </div>

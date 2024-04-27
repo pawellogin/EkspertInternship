@@ -117,7 +117,7 @@ function ProductList() {
                 <div className="card-columns">
                     {products.map(product => (
                         <div key={product.id} to={`${product.id}`} className="card product-list-product">
-                            <Link to={`${product.id}`} className="card-body product-list-product-main">
+                            <Link to={`/products/${product.id}`} className="card-body product-list-product-main">
                                 <h5 className="card-title">{product.name}</h5>
                                 <p className="card-text">Price: ${product.price}</p>
                                 <p className="card-text">Stock: {product.stock}</p>
