@@ -1,8 +1,8 @@
 import React, { useState }from 'react'
-import AuthService from '../services/AuthService';
 import ProductService from '../services/ProductService';
+import '../styles/AddProductAdmin.css'
 
-const AddProductPage = () => {
+const AddProductAdmin = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
@@ -19,8 +19,7 @@ const AddProductPage = () => {
   }
 
   return (
-    <>
-    <section>
+    <section className='add-product-admin'>
       <h1>Add new product</h1>
       <form on onSubmit={handleAddNewProduct}>
         <label>Name:</label>
@@ -60,11 +59,13 @@ const AddProductPage = () => {
           onChange={(e) => setImage(e.target.files[0])}
         />
 
-        <button className='btn btn-secondary' type='submit'>Add</button>
+        <div className='add-product-admin-submit'>
+          <button className='btn btn-secondary add-product-admin-submit-button' type='submit'>Add</button>
+        </div>
+
       </form>
     </section>
-    </>
   )
 }
 
-export default AddProductPage
+export default AddProductAdmin

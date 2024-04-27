@@ -1,0 +1,13 @@
+.add-product-admin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-product-admin-submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4px;
+}
