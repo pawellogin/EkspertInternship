@@ -1,0 +1,10 @@
+.user-edit-admin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    width: 100%;
+    max-width: 520px; 
+    padding: 1rem;
+    margin: auto;
+}

@@ -10,7 +10,7 @@ import LoggedUserInformation from './components/LoggedUserInformation';
 import RegisterForm from './components/RegisterForm';
 import UsersPageAdmin from './components/UsersPageAdmin';
 import ProductPageAdd from './components/AddProductForm';
-import UserPage from './components/UserPage';
+import UserEditAdmin from './components/UserEditAdmin';
 import ProductsPageAdmin from './components/ProductsPageAdmin';
 import ProductEditAdmin from './components/ProductEditAdmin';
 
@@ -33,7 +33,7 @@ function App() {
           <Route exact path="/manageProducts" element={<ProductsPageAdmin/>}/>
           <Route path="manageProducts/:productId" element={<ProductEditAdmin/>}/>;
           <Route exact path="/manageUsers" element={<UsersPageAdmin/>}/>
-          <Route path="manageUsers/:userId" element={<UserPage/>}/>
+          <Route path="manageUsers/:userId" element={<UserEditAdmin/>}/>
           <Route exact path="/manageProducts/addNewProduct" element={<ProductPageAdd/>}/>
           </Routes>
         </Layout>

@@ -2,9 +2,10 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useState } from 'react';
 import UserService from '../services/UserService';
+import '../styles/UserEditAdmin.css'
 
 
-function UserPageEdit() {
+function UserEditAdmin() {
     
     const { userId } = useParams();
     const [user, setUser] = useState(null);
@@ -24,7 +25,7 @@ function UserPageEdit() {
     }, []);
 
   return (
-    <section>
+    <section className='user-edit-admin'>
     <h2>User Page</h2>
 
     <div className='container'>
@@ -45,4 +46,4 @@ function UserPageEdit() {
   )
 }
 
-export default UserPageEdit
+export default UserEditAdmin
