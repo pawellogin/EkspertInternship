@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../services/AuthService";
 import '../styles/Welcome.css'
+import ProductList from "./ProductsList";
 
 const Welcome = () => {
   
@@ -12,7 +13,7 @@ const Welcome = () => {
       <section className="welcome">
         {isUserLoggedIn ? (
           <>
-          <h1 className="welcome-title">Welcome</h1>
+          <ProductList/>
           </>
         ) : (
           <>
