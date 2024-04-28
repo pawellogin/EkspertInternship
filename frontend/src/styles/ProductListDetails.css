@@ -8,3 +8,37 @@
     padding: 1rem;
     margin: auto;
 }
+
+.product-list-details-product-add-button{
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    transition: transform 0.15s ease;
+}
+
+.product-list-details-stock-buttons {
+    display: flex;
+    flex-direction: row;
+    margin: 4px;
+}
+
+.product-list-details-stock-buttons * {
+    margin: 0px 0px;
+}
+
+.product-list-details-stock-amount {
+    margin: 0px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    border: 1px solid lightgrey;
+    border-radius: 8px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-appearance: none;
+}
