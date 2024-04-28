@@ -9,7 +9,8 @@ function ProductList() {
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage, setProductsPerPage] = useState(5);
-    const [searchQuery, setSearchQuery] = useState('')
+    const [searchQuery, setSearchQuery] = useState('');
+    const [showZeroStock, setShowZeroStock] = useState(false);
 
     const fetchDataByPage = async () => {
         try{
@@ -72,6 +73,10 @@ function ProductList() {
         setCurrentPage(1);
     }
 
+    const toggleShowZeroStock = () => {
+        setShowZeroStock(!showZeroStock);
+    }
+
     useEffect(() => {
         fetchDataByPage();
     }, [currentPage, productsPerPage]);
@@ -83,6 +88,10 @@ function ProductList() {
             <h1 className='product-list-title'>Products</h1>
 
             <div className="product-list-container-buttons">
+
+                <button type="button" className="btn btn-secondary" onClick={toggleShowZeroStock}>
+                    {showZeroStock ? 'Hide Zero Stock' : 'Show Zero Stock'}
+                </button>
 
                 <div className="dropdown">
                     <button
@@ -115,15 +124,17 @@ function ProductList() {
 
             <div className='container product-list-containers-items'>
                 <div className="card-columns">
-                    {products.map(product => (
-                        <div key={product.id} to={`${product.id}`} className="card product-list-product">
-                            <Link to={`/products/${product.id}`} className="card-body product-list-product-main">
-                                <h5 className="card-title">{product.name}</h5>
-                                <p className="card-text">Price: ${product.price}</p>
-                                <p className="card-text">Stock: {product.stock}</p>
-                            </Link> 
-                            <button className='btn btn-secondary product-list-product-add-button'>Add to chart</button>                                             
-                        </div>
+                    {products
+                        .filter(product => showZeroStock || product.stock > 0)
+                        .map(product => (
+                            <div key={product.id} to={`${product.id}`} className="card product-list-product">
+                                <Link to={`/products/${product.id}`} className="card-body product-list-product-main">
+                                    <h5 className="card-title">{product.name}</h5>
+                                    <p className="card-text">Price: ${product.price}</p>
+                                    <p className="card-text">Stock: {product.stock}</p>
+                                </Link> 
+                                <button className='btn btn-secondary product-list-product-add-button'>Add to chart</button>                                             
+                            </div>
                         
                     ))}
                     <div className="product-list-navigation">
