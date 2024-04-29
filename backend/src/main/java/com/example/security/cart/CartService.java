@@ -19,4 +19,26 @@ public class CartService {
     public CartEntity save(CartEntity cartEntity){
         return cartRepository.save(cartEntity);
     }
+
+    public CartEntity saveOrUpdate(CartEntity cartEntity){
+        CartEntity cartEntityToFind = cartRepository.findByUserIdAndProductId(
+                cartEntity.getUserId(),
+                cartEntity.getProductId()
+        );
+
+        if(cartEntityToFind != null){
+            Long productAmount = cartEntityToFind.getProductAmount() + cartEntity.getProductAmount();
+            cartEntityToFind.setProductAmount(productAmount);
+            return cartRepository.save(cartEntityToFind);
+        } else{
+            return cartRepository.save(cartEntity);
+        }
+    }
+
+
+
+
+
+
+
 }

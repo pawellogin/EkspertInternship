@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,7 +29,7 @@ public class CartController {
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<CartDto> createCart(@RequestBody CartDto cartDto) {
         CartEntity cartEntity = cartMapper.mapToEntityFromDto(cartDto);
-        CartEntity savedCartEntity = cartService.save(cartEntity);
+        CartEntity savedCartEntity = cartService.saveOrUpdate(cartEntity);
         return new ResponseEntity<>(cartMapper.mapFromEntityToDto(savedCartEntity), HttpStatus.CREATED);
     }
 }
