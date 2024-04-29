@@ -42,7 +42,7 @@ const Navbar = ({ onLogout }) => {
                   </li>
 
                   <li>
-                    <Link className="nav-link text-light" to="/cart">Cart</Link>
+                    <Link className="nav-link text-light" to="/cart">Shopping Cart</Link>
                   </li>
 
                   {getRoles() === 'ROLE_ADMIN' && (
