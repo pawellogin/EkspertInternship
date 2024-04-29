@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Controller
+@RestController
 @RequestMapping("api/v1/")
 public class CartController {
 
@@ -52,7 +52,7 @@ public class CartController {
         }
     }
 
-    @GetMapping("carts")
+    @GetMapping("carts/{id}")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     public ResponseEntity<CartDto> getCart(@PathVariable("id") Long id) {
         Optional<CartEntity> foundCart = cartService.findOne(id);
