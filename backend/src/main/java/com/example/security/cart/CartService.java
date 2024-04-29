@@ -1,10 +1,14 @@
 package com.example.security.cart;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.reactive.context.StandardReactiveWebEnvironment;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
-
-
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 
 @Service
@@ -33,6 +37,18 @@ public class CartService {
         } else{
             return cartRepository.save(cartEntity);
         }
+    }
+
+    public List<CartEntity> findAll() {
+        return StreamSupport.stream(
+                cartRepository.findAll().spliterator()
+                ,false)
+                .collect(Collectors.toList());
+    }
+
+    public Optional<CartEntity> findOne(long id) {
+        return cartRepository.findById(id);
+
     }
 
 
