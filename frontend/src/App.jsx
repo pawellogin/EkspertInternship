@@ -14,6 +14,7 @@ import UserEditAdmin from './components/UserEditAdmin';
 import ProductsPageAdmin from './components/ProductsPageAdmin';
 import ProductEditAdmin from './components/ProductEditAdmin';
 import ProductListDetails from './components/ProductListDetails';
+import Cart from './components/Cart';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="manageUsers/:userId" element={<UserEditAdmin/>}/>
           <Route exact path="/manageProducts/addNewProduct" element={<AddProductAdmin/>}/>
           <Route path="products/:productId" element={<ProductListDetails/>}/>
+          <Route exact path="/cart" element={<Cart/>}/>
           </Routes>
         </Layout>
       </div>

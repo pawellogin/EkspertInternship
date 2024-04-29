@@ -1,19 +1,17 @@
 package com.example.security.cart;
 
-import com.example.security.product.ProductDto;
+import com.example.security.product.ProductEntity;
+import com.example.security.product.impl.ProductServiceImpl;
 import com.example.security.user.User;
-import com.example.security.user.UserService;
 import com.example.security.user.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,13 +26,20 @@ public class CartController {
 
     private UserServiceImpl userService;
 
+    private ProductServiceImpl productService;
+
     @Autowired
-    public CartController(CartService cartService, CartMapper cartMapper, UserServiceImpl userService) {
+    public CartController(
+            CartService cartService,
+            CartMapper cartMapper,
+            UserServiceImpl userService,
+            ProductServiceImpl productService
+    ) {
         this.cartService = cartService;
         this.cartMapper = cartMapper;
         this.userService = userService;
+        this.productService = productService;
     }
-
 
     @PostMapping("carts")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
@@ -44,34 +49,9 @@ public class CartController {
         return new ResponseEntity<>(cartMapper.mapFromEntityToDto(savedCartEntity), HttpStatus.CREATED);
     }
 
-    @GetMapping("carts")
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    public ResponseEntity<List<CartDto>> getCartsByUserId(Authentication auth) {
-        String currentUserUsername = auth.getName();
-
-        Optional<User> currentUser = userService.findByUsername(currentUserUsername);
-
-        if(currentUser.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }else{
-            Long userId = currentUser.get().getId();
-
-            List<CartEntity> foundCarts = cartService.findAllByUserId(userId);
-
-            if(foundCarts.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }else {
-                List<CartDto> cartsDto = foundCarts.stream()
-                        .map(cartMapper::mapFromEntityToDto)
-                        .collect(Collectors.toList());
-                return new ResponseEntity<>(cartsDto, HttpStatus.OK);
-            }
-        }
-    }
-
     @GetMapping("carts/{id}")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    public ResponseEntity<CartDto> getCartByUserId(@PathVariable("id") Long id, Authentication auth) {
+    public ResponseEntity<CartItem> getOneCartItemByUserId(@PathVariable("id") Long id, Authentication auth) {
         String currentUserUsername = auth.getName();
 
         Optional<User> currentUser = userService.findByUsername(currentUserUsername);
@@ -84,10 +64,95 @@ public class CartController {
             Optional<CartEntity> foundCart = cartService.findOneByUserId(id, userId);
             if (foundCart.isPresent()) {
                 CartDto cartDto = cartMapper.mapFromEntityToDto(foundCart.get());
-                return new ResponseEntity<>(cartDto, HttpStatus.FOUND);
+
+                String productName;
+                byte[] productImage;
+
+                Optional<ProductEntity> productEntity = productService.findOne(foundCart.get().getProductId());
+                if (productEntity.isEmpty()) {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                } else {
+                    productName = productEntity.get().getName();
+                    productImage = productEntity.get().getImage();
+                }
+
+                CartItem cartItem = cartMapper.mapToCartItemFromDto(cartDto, productName, productImage);
+
+                return new ResponseEntity<>(cartItem, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         }
     }
+
+    @GetMapping("carts")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    public ResponseEntity<List<CartItem>> getCartItemsByUserId(Authentication auth) {
+        String currentUserUsername = auth.getName();
+
+        Optional<User> currentUser = userService.findByUsername(currentUserUsername);
+
+        if (currentUser.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            Long userId = currentUser.get().getId();
+
+            List<CartEntity> foundCartsEntities = cartService.findAllByUserId(userId);
+
+            if (foundCartsEntities.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                List<CartDto> cartDtoList = foundCartsEntities.stream()
+                        .map(cartMapper::mapFromEntityToDto)
+                        .collect(Collectors.toList());
+
+                List<CartItem> cartItemList = new ArrayList<>();
+
+                for (CartDto cartDto : cartDtoList) {
+                    Optional<ProductEntity> productEntity = productService.findOne(cartDto.getProductId());
+                    if (productEntity.isPresent()) {
+                        String productName = productEntity.get().getName();
+                        byte[] productImage = productEntity.get().getImage();
+
+                        CartItem cartItem = cartMapper.mapToCartItemFromDto(cartDto, productName, productImage);
+                        cartItemList.add(cartItem);
+                    } else {
+                        String productName = "NOT_FOUND";
+                        byte[] productImage = new byte[0];
+
+                        CartItem cartItem = cartMapper.mapToCartItemFromDto(cartDto, productName, productImage);
+                        cartItemList.add(cartItem);
+                    }
+                }
+                return new ResponseEntity<>(cartItemList, HttpStatus.OK);
+            }
+        }
+    }
+
+//    @GetMapping("carts")
+//    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+//    public ResponseEntity<List<CartDto>> getCartsByUserId(Authentication auth) {
+//        String currentUserUsername = auth.getName();
+//
+//        Optional<User> currentUser = userService.findByUsername(currentUserUsername);
+//
+//        if(currentUser.isEmpty()){
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }else{
+//            Long userId = currentUser.get().getId();
+//
+//            List<CartEntity> foundCarts = cartService.findAllByUserId(userId);
+//
+//            if(foundCarts.isEmpty()) {
+//                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//            }else {
+//                List<CartDto> cartsDto = foundCarts.stream()
+//                        .map(cartMapper::mapFromEntityToDto)
+//                        .collect(Collectors.toList());
+//                return new ResponseEntity<>(cartsDto, HttpStatus.OK);
+//            }
+//        }
+//    }
+//
+
 }

@@ -40,6 +40,11 @@ const Navbar = ({ onLogout }) => {
                   <li className="nav-item">
                     <Link className="nav-link text-light" to="/profile">{AuthService.getCurrentUserUsername()}</Link>
                   </li>
+
+                  <li>
+                    <Link className="nav-link text-light" to="/cart">Cart</Link>
+                  </li>
+
                   {getRoles() === 'ROLE_ADMIN' && (
                     <>
                       <li className="nav-item">
