@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import '../styles/Cart.css'
 import CartService from '../services/CartService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 function Cart() {
@@ -19,9 +19,13 @@ function Cart() {
         }
     }
 
+    const handleDeleteCartItem = async (cartId) => {
+        CartService.deleteCart(cartId);
+    }
+
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [handleDeleteCartItem])
 
 
   return (
@@ -36,16 +40,19 @@ function Cart() {
                                 <h5 className="card-text">product name:  {cartItem.productName}</h5>
                                 <p className="card-text">Amount {cartItem.productAmount}</p>
                             </Link>
-                            <div className='cart-stock-buttons'>
-                                <button className='btn btn-secondary' ><FontAwesomeIcon icon={faMinus} /></button>
-                                <input
-                                    type="number" 
-                                    className='cart-stock-amount' 
-                                    value={cartItem.productAmount}
-                                    // onChange={(e) => setStockAmount(parseInt(e.target.value))}
-                                    inputMode="numeric"
-                                />
-                                <button className='btn btn-secondary' ><FontAwesomeIcon icon={faPlus} /></button>
+                            <div className='cart-buttons'>
+                                <div className="cart-buttons-amount">
+                                    <button className='btn btn-secondary cart-amount-minus' ><FontAwesomeIcon icon={faMinus}/></button>
+                                    <input
+                                        type="number" 
+                                        className='cart-stock-amount' 
+                                        value={cartItem.productAmount}
+                                        // onChange={(e) => setStockAmount(parseInt(e.target.value))}
+                                        inputMode="numeric"
+                                    />
+                                    <button className='btn btn-secondary cart-amount-plus' ><FontAwesomeIcon icon={faPlus}/></button>
+                                </div>
+                                <FontAwesomeIcon icon={faTimes} onClick={() => handleDeleteCartItem(cartItem.id)} className="cart-buttons-delete" />
                             </div>
                         </div>
                     ))}

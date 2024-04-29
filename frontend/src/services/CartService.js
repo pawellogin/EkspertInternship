@@ -37,6 +37,15 @@ class CartService {
             }
         });
     }
+
+    async deleteCart(cartId) {
+        const userToken = AuthHeader().Authorization;
+        return axios.delete(API_URL + "carts/" + cartId, {
+            headers: {
+                Authorization: userToken
+            }
+        });
+    }
 }
 
 export default new CartService
