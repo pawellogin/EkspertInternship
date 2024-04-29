@@ -43,7 +43,18 @@ public class CartController {
 
     @PostMapping("carts")
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
-    public ResponseEntity<CartDto> createCart(@RequestBody CartDto cartDto) {
+    public ResponseEntity<CartDto> createCart(@RequestBody CartDto cartDto, Authentication auth) {
+        String currentUserUsername = auth.getName();
+
+        Optional<User> currentUser = userService.findByUsername(currentUserUsername);
+
+        if (currentUser.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Long userId = currentUser.get().getId();
+        cartDto.setUserId(userId);
+
         CartEntity cartEntity = cartMapper.mapToEntityFromDto(cartDto);
         CartEntity savedCartEntity = cartService.saveOrUpdate(cartEntity);
         return new ResponseEntity<>(cartMapper.mapFromEntityToDto(savedCartEntity), HttpStatus.CREATED);
