@@ -9,13 +9,13 @@
     margin: auto;
 }
 
-.product-list-container-buttons {
+.product-list-container-buttons  {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.product-list-container-buttons .btn {
+.product-list-container-buttons *  {
     margin: 4px
 }
 
@@ -44,6 +44,14 @@
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
     transition: transform 0.15s ease;
+}
+
+.product-list-product-alert-added{
+    background-color: #28a745;
+}
+
+.product-list-product-alert-added:hover{
+    background-color: #28a745;
 }
 
 .product-list-product-add-button:hover {

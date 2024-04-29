@@ -82,6 +82,9 @@ function ProductList() {
     }
 
     const handleAddOneToCart = (productId) => {
+        if(showAddedToCart){
+            return;
+        }
         const productAmount = 1;
         const response = CartService.postCart(productId, productAmount);
         setShowAddedToCart(true);
@@ -96,8 +99,6 @@ function ProductList() {
     useEffect(() => {
         fetchDataByPage();
     }, [currentPage, productsPerPage]);
-
-
 
     return (
         <section className='product-list'>
@@ -146,11 +147,11 @@ function ProductList() {
                             <div key={product.id} to={`${product.id}`} className="card product-list-product">
                                 <Link to={`/products/${product.id}`} className="card-body product-list-product-main">
                                     <h5 className="card-title">{product.name}</h5>
-                                    <p className="card-text">Price: ${product.price}</p>
+                                    <p className="card-text">Price: {product.price}$</p>
                                     <p className="card-text">Stock: {product.stock}</p>
                                 </Link> 
                                 {showAddedToCart && addedProductId === product.id ? (
-                                    <button className='btn btn-secondary product-list-product-add-button' >Added!</button>  
+                                    <button className='btn btn-secondary product-list-product-alert-added' >Added!</button>  
                                 ) : (
                                     <button className='btn btn-secondary product-list-product-add-button' onClick={() => handleAddOneToCart(product.id)}>Add one to cart</button>                                             
                                 )}
