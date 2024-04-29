@@ -17,4 +17,6 @@ public interface UserService {
     List<User> findAll();
 
     Optional<User> findOne(Long id);
+
+    Optional<User> findByUsername(String username);
 }

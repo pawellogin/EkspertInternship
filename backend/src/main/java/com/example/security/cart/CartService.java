@@ -50,6 +50,14 @@ public class CartService {
         return cartRepository.findById(id);
     }
 
+    public List<CartEntity> findAllByUserId(Long userId) {
+        return cartRepository.findAllByUserId(userId);
+    }
+
+    public Optional<CartEntity> findOneByUserId(Long id, Long userId) {
+        return cartRepository.findByIdAndUserId(id, userId);
+    }
+
 
 
 
