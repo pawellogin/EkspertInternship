@@ -58,8 +58,11 @@ public class CartService {
         return cartRepository.findByIdAndUserId(id, userId);
     }
 
-
     public void deleteCart(Long id) {
         cartRepository.deleteById(id);
+    }
+
+    public boolean isExists(Long id) {
+        return cartRepository.existsById(id);
     }
 }

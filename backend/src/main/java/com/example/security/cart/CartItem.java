@@ -1,6 +1,7 @@
 package com.example.security.cart;
 
 import javax.persistence.Lob;
+import java.math.BigDecimal;
 
 public class CartItem {
     private Long id;
@@ -11,6 +12,8 @@ public class CartItem {
 
     @Lob
     private byte[] productImage;
+
+    private BigDecimal productPrice;
 
     private Long productAmount;
 
@@ -52,5 +55,13 @@ public class CartItem {
 
     public void setProductAmount(Long productAmount) {
         this.productAmount = productAmount;
+    }
+
+    public BigDecimal getProductPrice() {
+        return productPrice;
+    }
+
+    public void setProductPrice(BigDecimal productPrice) {
+        this.productPrice = productPrice;
     }
 }

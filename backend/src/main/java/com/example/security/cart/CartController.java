@@ -4,6 +4,7 @@ import com.example.security.product.ProductEntity;
 import com.example.security.product.impl.ProductServiceImpl;
 import com.example.security.user.User;
 import com.example.security.user.impl.UserServiceImpl;
+import org.checkerframework.checker.nullness.Opt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -78,6 +80,7 @@ public class CartController {
 
                 String productName;
                 byte[] productImage;
+                BigDecimal productPrice;
 
                 Optional<ProductEntity> productEntity = productService.findOne(foundCart.get().getProductId());
                 if (productEntity.isEmpty()) {
@@ -85,9 +88,10 @@ public class CartController {
                 } else {
                     productName = productEntity.get().getName();
                     productImage = productEntity.get().getImage();
+                    productPrice = productEntity.get().getPrice();
                 }
 
-                CartItem cartItem = cartMapper.mapToCartItemFromDto(cartDto, productName, productImage);
+                CartItem cartItem = cartMapper.mapToCartItemFromDto(cartDto, productName, productImage, productPrice);
 
                 return new ResponseEntity<>(cartItem, HttpStatus.OK);
             } else {
@@ -124,14 +128,16 @@ public class CartController {
                     if (productEntity.isPresent()) {
                         String productName = productEntity.get().getName();
                         byte[] productImage = productEntity.get().getImage();
+                        BigDecimal productPrice = productEntity.get().getPrice();
 
-                        CartItem cartItem = cartMapper.mapToCartItemFromDto(cartDto, productName, productImage);
+                        CartItem cartItem = cartMapper.mapToCartItemFromDto(cartDto, productName, productImage, productPrice);
                         cartItemList.add(cartItem);
                     } else {
                         String productName = "NOT_FOUND";
                         byte[] productImage = new byte[0];
+                        BigDecimal productPrice = null;
 
-                        CartItem cartItem = cartMapper.mapToCartItemFromDto(cartDto, productName, productImage);
+                        CartItem cartItem = cartMapper.mapToCartItemFromDto(cartDto, productName, productImage, productPrice);
                         cartItemList.add(cartItem);
                     }
                 }
@@ -145,6 +151,37 @@ public class CartController {
     public ResponseEntity<?> deleteCartItem(@PathVariable("id") Long id) {
         cartService.deleteCart(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("carts/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    public ResponseEntity<CartDto> updateProductAmount(
+            @PathVariable("id") Long id,
+            @RequestBody CartDto cartDto,
+            Authentication auth
+    ){
+        System.out.println(cartDto.getId());
+        Optional<CartEntity> cartEntity = cartService.findOne(cartDto.getId());
+
+        if(cartEntity.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        String currentUserUsername = auth.getName();
+
+        Optional<User> currentUser = userService.findByUsername(currentUserUsername);
+
+        if(currentUser.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        //TODO check the security for put end point for cartController
+
+        cartEntity.get().setProductAmount(cartDto.getProductAmount());
+
+        CartEntity savedCartEntity = cartService.save(cartEntity.get());
+
+        return new ResponseEntity<>(cartMapper.mapFromEntityToDto(savedCartEntity) , HttpStatus.OK);
     }
 
 
