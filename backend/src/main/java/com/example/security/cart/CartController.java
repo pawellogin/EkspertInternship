@@ -140,6 +140,14 @@ public class CartController {
         }
     }
 
+    @DeleteMapping("carts/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    public ResponseEntity<?> deleteCartItem(@PathVariable("id") Long id) {
+        cartService.deleteCart(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
 //    @GetMapping("carts")
 //    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
 //    public ResponseEntity<List<CartDto>> getCartsByUserId(Authentication auth) {
