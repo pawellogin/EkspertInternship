@@ -3,6 +3,7 @@ import ProductService from "../services/ProductService"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import CartService from '../services/CartService';
 import '../styles/ProductList.css'
 
 function ProductList() {
@@ -11,6 +12,9 @@ function ProductList() {
     const [productsPerPage, setProductsPerPage] = useState(5);
     const [searchQuery, setSearchQuery] = useState('');
     const [showZeroStock, setShowZeroStock] = useState(false);
+    const [showAddedToCart, setShowAddedToCart] = useState(false);
+    const [addedProductId, setAddedProductId] = useState(null);
+
 
     const fetchDataByPage = async () => {
         try{
@@ -77,6 +81,18 @@ function ProductList() {
         setShowZeroStock(!showZeroStock);
     }
 
+    const handleAddOneToCart = (productId) => {
+        const productAmount = 1;
+        const response = CartService.postCart(productId, productAmount);
+        setShowAddedToCart(true);
+        setAddedProductId(productId);
+
+        setTimeout(() => {
+            setShowAddedToCart(false);
+            setAddedProductId(null);
+        },1000)
+    }
+
     useEffect(() => {
         fetchDataByPage();
     }, [currentPage, productsPerPage]);
@@ -133,7 +149,11 @@ function ProductList() {
                                     <p className="card-text">Price: ${product.price}</p>
                                     <p className="card-text">Stock: {product.stock}</p>
                                 </Link> 
-                                <button className='btn btn-secondary product-list-product-add-button'>Add to chart</button>                                             
+                                {showAddedToCart && addedProductId === product.id ? (
+                                    <button className='btn btn-secondary product-list-product-add-button' >Added!</button>  
+                                ) : (
+                                    <button className='btn btn-secondary product-list-product-add-button' onClick={() => handleAddOneToCart(product.id)}>Add one to cart</button>                                             
+                                )}
                             </div>
                         
                     ))}

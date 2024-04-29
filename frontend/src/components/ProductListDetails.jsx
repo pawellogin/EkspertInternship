@@ -5,12 +5,15 @@ import ProductService from '../services/ProductService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import '../styles/ProductListDetails.css'
+import CartService from '../services/CartService';
 
 function ProductListDetails() {
     
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
-    const [stockAmount, setStockAmount] = useState(0.0);
+    const [stockAmount, setStockAmount] = useState(1.0);
+    const [showAddedToCart, setShowAddedToCart] = useState(false);
+
 
     const fetchData = async () => {
         try{
@@ -23,7 +26,7 @@ function ProductListDetails() {
     }
 
     const decreaseStock = () => {
-        if(stockAmount > 0){
+        if(stockAmount > 1){
             setStockAmount(stockAmount -1);
         }
     }
@@ -35,7 +38,12 @@ function ProductListDetails() {
     }
 
     const handleAddToCart = () => {
-        console.log("TODO add endpoint");
+        const productAmount = stockAmount;
+        const response = CartService.postCart(productId, productAmount);
+        setShowAddedToCart(true);
+        setTimeout(() => {
+            setShowAddedToCart(false);
+        },1000)
     }
 
     useEffect(() => {
@@ -66,11 +74,18 @@ function ProductListDetails() {
                         />
                         <button className='btn btn-secondary' onClick={() => increaseStock(product.stock)}><FontAwesomeIcon icon={faPlus} /></button>
                     </div>
-                    <button className='btn btn-secondary product-list-details-product-add-button' onClick={handleAddToCart}>Add to chart</button> 
+                    <button className='btn btn-secondary product-list-details-product-add-button' onClick={handleAddToCart}>Add to cart</button> 
                 </div>
             )}
         </div>
     </div>
+
+    {showAddedToCart && (
+        <div className="alert alert-success cart-popup">
+            <span>Added to cart</span>
+        </div>
+    )}
+
 </section>
   )
 }
