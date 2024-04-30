@@ -84,14 +84,34 @@ public class ProductController {
     @PreAuthorize("hasAuthority('product:write')")
     public ResponseEntity<ProductDto> updateFullProduct(
             @PathVariable("id") Long id,
-            @RequestBody ProductDto ProductDto){
-        if(!productService.isExists(id)){
+            @RequestBody ProductDto productDto){
+        Optional<ProductEntity> existingProductEntity = productService.findOne(id);
+        if(existingProductEntity.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        ProductDto.setId(id);
-        ProductEntity ProductEntity = productMapper.mapToEntityFromDto(ProductDto);
-        ProductEntity savedProductEntity = productService.save(ProductEntity);
+
+        // Update name if provided
+        if (productDto.getName() != null) {
+            existingProductEntity.get().setName(productDto.getName());
+        }
+
+        // Update price if provided
+        if (productDto.getPrice() != null) {
+            existingProductEntity.get().setPrice(productDto.getPrice());
+        }
+
+        // Update stock if provided
+        if (productDto.getStock() != null) {
+            existingProductEntity.get().setStock(productDto.getStock());
+        }
+
+        // Update image if provided
+        if (productDto.getImage() != null) {
+            existingProductEntity.get().setImage(productDto.getImage());
+        }
+
+        ProductEntity savedProductEntity = productService.save(existingProductEntity.get());
 
         return new ResponseEntity<>(
                 productMapper.mapFromEntityToDto(savedProductEntity),

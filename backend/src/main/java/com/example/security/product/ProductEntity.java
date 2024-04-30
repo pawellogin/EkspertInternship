@@ -15,7 +15,7 @@ public class ProductEntity {
 
     private BigDecimal price;
 
-    private Integer stock;
+    private Float stock;
 
     @Lob
     private byte[] image;
@@ -32,7 +32,7 @@ public class ProductEntity {
         return price;
     }
 
-    public Integer getStock() {
+    public Float getStock() {
         return stock;
     }
 
@@ -52,7 +52,7 @@ public class ProductEntity {
         this.price = price;
     }
 
-    public void setStock(Integer stock) {
+    public void setStock(Float stock) {
         this.stock = stock;
     }
 
