@@ -68,7 +68,7 @@ const UsersPageAdmin = () => {
 
     return (
         <section className='users-page-admin'>
-            <h1>Users Page</h1>
+            <h1>Admin Users Page</h1>
             <div className='user-edit-container-buttons'>
                 <div>
                     <Link type="button" className="btn btn-secondary" to="/register">Add New User</Link>

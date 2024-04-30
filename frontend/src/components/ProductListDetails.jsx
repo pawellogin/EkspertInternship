@@ -74,17 +74,21 @@ function ProductListDetails() {
                         />
                         <button className='btn btn-secondary' onClick={() => increaseStock(product.stock)}><FontAwesomeIcon icon={faPlus} /></button>
                     </div>
-                    <button className='btn btn-secondary product-list-details-product-add-button' onClick={handleAddToCart}>Add to cart</button> 
+                    {showAddedToCart ?
+                        (
+                            <div className='btn product-list-details-alert-added-product'>Added!</div>
+                        ):
+                        (
+                            <button className='btn btn-secondary product-list-details-product-add-button' onClick={handleAddToCart}>Add to cart</button>
+                        )
+                    }
+                    
                 </div>
             )}
         </div>
     </div>
 
-    {showAddedToCart && (
-        <div className="alert alert-success cart-popup">
-            <span>Added to cart</span>
-        </div>
-    )}
+
 
 </section>
   )

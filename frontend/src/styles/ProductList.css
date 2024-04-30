@@ -47,6 +47,8 @@
 }
 
 .product-list-product-alert-added{
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
     background-color: #28a745;
 }
 

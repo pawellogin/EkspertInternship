@@ -10,6 +10,7 @@ function Cart() {
     const [cartItems, setCartItems] = useState([]);
     const [showSavedAmount, setShowSavedAmount] = useState(false);
     const [savedAmountCartId, setSavedAmountCartId] = useState(null);
+    const [showEmptyCartAlert, setShowEmptyCartAlert] = useState(false);
     const [cartSum, setCartSum] = useState(0);
 
     const handleChangeProductAmount = (cartId, newAmount) => {
@@ -51,6 +52,10 @@ function Cart() {
             setCartItems(response.data);
             // console.log(cartItems);
         }catch(error){
+            if(error.response && error.response.status === 404) {
+                console.error("Cart items not found:", error);
+                setShowEmptyCartAlert(true);
+            }
             console.error("Error fetching product:", error);
         }
     }
@@ -78,17 +83,28 @@ function Cart() {
         }
     }
 
+    
     useEffect(() => {
         fetchData();
     }, [])
 
-
+    useEffect(() => {
+        let sum = 0;
+        cartItems.forEach(cartItem => {
+            sum += cartItem.productPrice * cartItem.productAmount;
+        });
+        setCartSum(sum);
+    }, [cartItems])
 
   return (
     <section className='cart'>
         <h1>Your Cart</h1>
 
         <div className="container">
+            {showEmptyCartAlert &&
+            (
+                <div className="alert alert-info cart-alert-cart-empty">Your cart is empty</div>
+            )}
             <div className="card-columns">
                     {cartItems.map(cartItem => (
                         <div key={cartItem.id} className="card cart-cart">
@@ -101,7 +117,7 @@ function Cart() {
                                 <div className="cart-buttons-amount">
                                     <button className='btn btn-secondary cart-amount-minus' onClick={() => decreaseProductAmountByOne(cartItem.id)}><FontAwesomeIcon icon={faMinus}/></button>
                                     <input
-                                        type="number" 
+                                        type="number"
                                         className='cart-stock-amount' 
                                         value={cartItem.productAmount}
                                         onChange={(e) => handleChangeProductAmount(cartItem.id, parseInt(e.target.value))}
@@ -122,6 +138,7 @@ function Cart() {
                         </div>
                     ))}
             </div>
+            <div className="container cart-sum">Sum of cart: {cartSum}$</div>
         </div>
     </section>
   )

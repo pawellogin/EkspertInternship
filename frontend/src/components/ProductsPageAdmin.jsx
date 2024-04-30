@@ -85,7 +85,7 @@ const ProductPage = () => {
 
     return (
         <section className='products-page-admin'>
-            <h1 className='products-page-admin-title'>Product Page</h1>
+            <h1 className='products-page-admin-title'>Admin Product Page</h1>
 
             <div className="products-page-admin-container-buttons">
                 <div>

@@ -37,21 +37,21 @@ const Navbar = ({ onLogout }) => {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {AuthService.getCurrentUser() ? (
                 <>
-                  <li className="nav-item">
-                    <Link className="nav-link text-light" to="/profile">Profile: {AuthService.getCurrentUserUsername()}</Link>
-                  </li>
-
                   <li>
                     <Link className="nav-link text-light" to="/cart">Shopping Cart</Link>
+                  </li>
+
+                  <li className="nav-item">
+                    <Link className="nav-link text-light" to="/profile">Profile: {AuthService.getCurrentUserUsername()}</Link>
                   </li>
 
                   {getRoles() === 'ROLE_ADMIN' && (
                     <>
                       <li className="nav-item">
-                        <Link className="nav-link text-light" to="/manageProducts">Manage Products</Link>
+                        <Link className="nav-link text-light" to="/manageProducts">Admin Manage Products</Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link text-light" to="/manageUsers">Manage Users</Link>
+                        <Link className="nav-link text-light" to="/manageUsers">Admin Manage Users</Link>
                       </li>
                     </>
                   )}

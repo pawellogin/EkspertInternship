@@ -97,3 +97,18 @@
 .cart-amount-alert-saved:hover {
     background-color: #28a745
 }
+
+.cart-alert-cart-empty {
+    display: flex;
+    justify-content: center;
+}
+
+.cart-sum {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid lightgray;
+    border-radius: 4px;
+    height: 64px;
+    font-weight: bold;
+}
