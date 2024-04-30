@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ProductService from "../services/ProductService"
+import ProductImage from './ProductImage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -141,6 +142,7 @@ const ProductListAdmin = () => {
                                 <p className="card-text">Price: ${product.price}</p>
                                 <p className="card-text">Stock: {product.stock}</p>
                             </div>
+                            <ProductImage className="product-list-product-main-image" productId={(product.id)}/>
                         </Link>
                         <FontAwesomeIcon icon={faTimes} onClick={() => handleDeleteProduct(product.id)} className="product-page-delete" />
                         </div>    

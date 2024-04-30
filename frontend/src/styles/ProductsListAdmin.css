@@ -34,6 +34,9 @@
 }
 
 .products-page-admin-product-data {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     text-decoration: none;
     border-radius: 8px;
     transition: transform 0.15s ease, background-color 0.15s ease;
