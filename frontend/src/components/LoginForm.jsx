@@ -13,7 +13,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const response = await AuthService.login(username, password);
-      navigate('/profile');
+      navigate('/');
       window.location.reload();
     } catch (error) {
       if(!error?.response) {

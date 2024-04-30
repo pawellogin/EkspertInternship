@@ -11,3 +11,11 @@
     align-items: center;
     margin: 4px;
 }
+
+.add-product-admin-alert-submitted {
+    background-color: #28a745;
+}
+
+.add-product-admin-alert-submitted:hover {
+    background-color: #28a745;
+}

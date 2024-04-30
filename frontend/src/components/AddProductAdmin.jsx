@@ -7,21 +7,44 @@ const AddProductAdmin = () => {
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
   const [image, setImage] = useState(null);
+  const [errorMassage, setErrorMassage] = useState("");
+  const [showProductAddedSuccessfully, setShowProductAddedSuccessfully] = useState(false);
+  const [showProductAlreadyInDatabase,setShowProductAlreadyInDatabase] = useState(false);
 
   const handleAddNewProduct = async(e) => {
     e.preventDefault();
+
+    if (!name || !price || !stock) {
+      setErrorMassage("Please fill in all the fields");
+      setTimeout(() => {
+        setErrorMassage("");
+      },1000)
+      return;
+    }
+
     try {
-      const response = await ProductService.PostProduct(image, name, price, stock);
-      console.log(response.data);
+      const response = await ProductService.postProduct(image, name, price, stock);
+      setShowProductAddedSuccessfully(true);
+      setTimeout(() => {
+        setShowProductAddedSuccessfully(false);
+      },1000)
     }catch(error){
-      console.error(error);
+        if(error.response?.status === 409) {
+          setErrorMassage("Product already is in database");
+          setTimeout(() => {
+            setErrorMassage("");
+          },1000)
+        }else{
+          console.error("Error while adding new product",error);
+          setErrorMassage("Error while adding new product");
+        }
     }
   }
 
   return (
     <section className='add-product-admin'>
       <h1>Add new product</h1>
-      <form on onSubmit={handleAddNewProduct}>
+      <form onSubmit={handleAddNewProduct}>
         <label>Name:</label>
         <input
           className='form-control'
@@ -51,19 +74,30 @@ const AddProductAdmin = () => {
           onChange={(e) => setStock(e.target.value)}
         />
 
-        <label>Image:</label>
+        {/* <label>Image:</label>
         <input
           className='form-control'
           type='file'
           id='image'
           onChange={(e) => setImage(e.target.files[0])}
-        />
+        /> */}
 
         <div className='add-product-admin-submit'>
-          <button className='btn btn-secondary add-product-admin-submit-button' type='submit'>Add</button>
+          {showProductAddedSuccessfully ? 
+          (
+            <div className="btn btn-secondary add-product-admin-alert-submitted">Added!</div>
+          ):
+          (
+            <button className='btn btn-secondary add-product-admin-submit-button' type='submit'>Add</button>
+          )}
         </div>
-
       </form>
+      
+      {errorMassage && (
+          <div className="alert alert-danger add-product-admin-alert-taken" role="alert">
+            {errorMassage}
+          </div>
+        )}
     </section>
   )
 }
