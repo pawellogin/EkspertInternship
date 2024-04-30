@@ -1,7 +1,5 @@
 package com.example.security.user;
 
-import com.example.security.product.ProductEntity;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,4 +17,6 @@ public interface UserService {
     Optional<User> findOne(Long id);
 
     Optional<User> findByUsername(String username);
+
+    User save(User user);
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -50,7 +51,48 @@ public class UserController {
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
 
+    @PatchMapping("/users/{id}")
+    @PreAuthorize("hasAuthority('user:write')")
+    public ResponseEntity<UserDto> updateUser(
+            @PathVariable("id") Long id,
+            @RequestBody UserDto userDto
+    ) {
+        Optional<User> existingUser = userService.findOne(userDto.getId());
+        if(existingUser.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        Optional<User> userWithTheSameUsername = userService.findByUsername(userDto.getUsername());
+        if(userWithTheSameUsername.isPresent()) {
+            if(userWithTheSameUsername.get().getId() != userDto.getId()){
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
+
+        if(userDto.getUsername() != null) {
+            existingUser.get().setUsername(userDto.getUsername());
+        }
+
+        if(userDto.getUserRole() != null) {
+            existingUser.get().setUserRole(userDto.getUserRole());
+        }
+
+        if(userDto.getFirstName() != null) {
+            existingUser.get().setFirstName(userDto.getFirstName());
+        }
+
+        if(userDto.getLastName() != null) {
+            existingUser.get().setLastName(userDto.getLastName());
+        }
+
+        User savedUser = userService.save(existingUser.get());
+
+        return new ResponseEntity<>(
+                userMapper.mapFromEntityToDto(savedUser),
+                HttpStatus.OK
+        );
     }
 
 

@@ -9,7 +9,6 @@ public class UserDto {
     private String firstName;
     private String lastName;
 
-
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 

@@ -1,6 +1,5 @@
 package com.example.security.user.impl;
 
-import com.example.security.product.ProductEntity;
 import com.example.security.user.User;
 import com.example.security.user.UserRepository;
 import com.example.security.user.UserService;
@@ -39,5 +38,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByUsername(String username) {
         return  userRepository.findByUsername(username);
+    }
+
+    // only use for update, not registering new user
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
     }
 }
