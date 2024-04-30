@@ -32,6 +32,10 @@ public class ProductController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto product){
         ProductEntity productEntity = productMapper.mapToEntityFromDto(product);
+        if(productService.findOneByName(productEntity.getName()).isPresent()){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
         ProductEntity savedProductEntity = productService.save(productEntity);
         return new ResponseEntity<>(productMapper.mapFromEntityToDto(savedProductEntity), HttpStatus.CREATED);
     }

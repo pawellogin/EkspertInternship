@@ -41,6 +41,11 @@ public class ProductServiceImpl implements ProductService {
     public void deleteUser(Long id) {
         productRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<ProductEntity> findOneByName(String name) {
+        return productRepository.findByName(name);
+    }
 }
 
 

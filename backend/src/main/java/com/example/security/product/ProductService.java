@@ -18,4 +18,6 @@ public interface ProductService {
     boolean isExists(Long id);
 
     void deleteUser(Long id);
+
+    Optional<ProductEntity> findOneByName(String name);
 }
