@@ -8,10 +8,10 @@ import AuthService from './services/AuthService';
 import LoginForm from './components/LoginForm';
 import LoggedUserInformation from './components/LoggedUserInformation';
 import RegisterForm from './components/RegisterForm';
-import UsersPageAdmin from './components/UsersPageAdmin';
+import UsersPageAdmin from './components/UsersListAdmin';
 import AddProductAdmin from './components/AddProductAdmin';
 import UserEditAdmin from './components/UserEditAdmin';
-import ProductsPageAdmin from './components/ProductsPageAdmin';
+import ProductListAdmin from './components/ProductsListAdmin';
 import ProductEditAdmin from './components/ProductEditAdmin';
 import ProductListDetails from './components/ProductListDetails';
 import Cart from './components/Cart';
@@ -32,7 +32,7 @@ function App() {
           <Route exact path="/register" element={<RegisterForm />} />
           <Route exact path="" element={<Welcome/>}/>
           <Route exact path="/profile" element={<LoggedUserInformation/>}/>
-          <Route exact path="/manageProducts" element={<ProductsPageAdmin/>}/>
+          <Route exact path="/manageProducts" element={<ProductListAdmin/>}/>
           <Route path="manageProducts/:productId" element={<ProductEditAdmin/>}/>;
           <Route exact path="/manageUsers" element={<UsersPageAdmin/>}/>
           <Route path="manageUsers/:userId" element={<UserEditAdmin/>}/>

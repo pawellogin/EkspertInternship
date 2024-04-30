@@ -48,6 +48,15 @@ class ProductService {
             throw error;
         }
     }
+
+    async deleteProduct(productId){
+        const userToken = AuthHeader().Authorization;
+        return axios.delete(API_URL + "products/" + productId, {
+            headers: {
+                Authorization: userToken
+            }
+        })
+    }
 }
 
 export default new ProductService;

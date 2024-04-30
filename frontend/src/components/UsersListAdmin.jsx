@@ -3,7 +3,7 @@ import UserService from '../services/UserService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faSearch  } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import '../styles/UsersPageAdmin.css'
+import '../styles/UsersListAdmin.css'
 
 const UsersPageAdmin = () => {
 

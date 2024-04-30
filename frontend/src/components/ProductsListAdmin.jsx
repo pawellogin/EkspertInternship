@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import ProductService from "../services/ProductService"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import '../styles/ProductPageAdmin.css'
+import '../styles/ProductsListAdmin.css'
 
-const ProductPage = () => {
+const ProductListAdmin = () => {
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage, setProductsPerPage] = useState(5);
@@ -58,6 +58,15 @@ const ProductPage = () => {
     const changeToPreviousPage = () => {
         if(currentPage > 1){
             setCurrentPage(currentPage - 1);
+        }
+    }
+
+    const handleDeleteProduct = (productId) => {
+        try{
+            ProductService.deleteProduct(productId).then(() =>
+                fetchDataByPage ());
+        }catch(error){
+            console.error("Error while deleting product: ", error);
         }
     }
 
@@ -125,13 +134,16 @@ const ProductPage = () => {
             <div className='container products-page-admin-containers-items'>
                 <div className="card-columns">
                     {products.map(product => (
-                        <Link key={product.id} to={`${product.id}`} className="card products-page-admin-product">
+                        <div className="card products-page-admin-product" key={product.id}>
+                        <Link key={product.id} to={`${product.id}`} className="card-body products-page-admin-product-data">
                             <div className="card-body">
                                 <h5 className="card-title">{product.name}</h5>
                                 <p className="card-text">Price: ${product.price}</p>
                                 <p className="card-text">Stock: {product.stock}</p>
                             </div>
                         </Link>
+                        <FontAwesomeIcon icon={faTimes} onClick={() => handleDeleteProduct(product.id)} className="product-page-delete" />
+                        </div>    
                     ))}
                     <div className="products-page-admin-navigation">
                         <button type="button" className="btn btn-secondary" onClick={changeToPreviousPage}><FontAwesomeIcon icon={faArrowLeft} /></button>
@@ -144,4 +156,4 @@ const ProductPage = () => {
       );
     }
 
-export default ProductPage
+export default ProductListAdmin
