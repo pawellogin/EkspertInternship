@@ -95,5 +95,11 @@ public class UserController {
         );
     }
 
+    @DeleteMapping("users/{id}")
+    @PreAuthorize("hasAuthority('user:write')")
+    public ResponseEntity<UserDto> deleteUser(@PathVariable("id") Long id){
+        userService.deleteUser(id);
 
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

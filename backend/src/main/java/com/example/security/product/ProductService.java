@@ -1,6 +1,5 @@
 package com.example.security.product;
 
-import com.example.security.product.ProductEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ public interface ProductService {
 
     boolean isExists(Long id);
 
-    void deleteUser(Long id);
+    void deleteProduct(Long id);
 
     Optional<ProductEntity> findOneByName(String name);
 }

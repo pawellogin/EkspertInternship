@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -124,7 +123,7 @@ public class ProductController {
     @DeleteMapping(path = "/products/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity deleteProduct(@PathVariable("id") Long id){
-        productService.deleteUser(id);
+        productService.deleteProduct(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
