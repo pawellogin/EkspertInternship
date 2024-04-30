@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ProductService from "../services/ProductService"
+import ProductImage from './ProductImage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -146,9 +147,12 @@ function ProductList() {
                         .map(product => (
                             <div key={product.id} to={`${product.id}`} className="card product-list-product">
                                 <Link to={`/products/${product.id}`} className="card-body product-list-product-main">
-                                    <h5 className="card-title">{product.name}</h5>
-                                    <p className="card-text">Price: {product.price}$</p>
-                                    <p className="card-text">Stock: {product.stock}</p>
+                                    <div>
+                                        <h5 className="card-title">{product.name}</h5>
+                                        <p className="card-text">Price: {product.price}$</p>
+                                        <p className="card-text">Stock: {product.stock}</p>
+                                    </div>
+                                    <ProductImage className="product-list-product-main-image" productId={(product.id)}/>
                                 </Link> 
                                 {showAddedToCart && addedProductId === product.id ? (
                                     <button className='btn btn-secondary product-list-product-alert-added' >Added!</button>  

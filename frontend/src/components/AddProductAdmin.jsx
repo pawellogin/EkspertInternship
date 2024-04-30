@@ -6,7 +6,7 @@ const AddProductAdmin = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
   const [errorMassage, setErrorMassage] = useState("");
   const [showProductAddedSuccessfully, setShowProductAddedSuccessfully] = useState(false);
   const [showProductAlreadyInDatabase,setShowProductAlreadyInDatabase] = useState(false);
@@ -74,13 +74,13 @@ const AddProductAdmin = () => {
           onChange={(e) => setStock(e.target.value)}
         />
 
-        {/* <label>Image:</label>
+        <label>Image:</label>
         <input
           className='form-control'
           type='file'
           id='image'
           onChange={(e) => setImage(e.target.files[0])}
-        /> */}
+        />
 
         <div className='add-product-admin-submit'>
           {showProductAddedSuccessfully ? 

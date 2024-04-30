@@ -26,6 +26,9 @@
 }
 
 .product-list-product-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     border-style: solid;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
@@ -67,4 +70,11 @@
 
 .product-list-navigation * {
     margin: 0px 4px;
+}
+
+.product-list-product-main-image {
+    border: 2px solid lightgray;
+    border-radius: 16px;
+    width: 100px;
+    height: 100px;
 }

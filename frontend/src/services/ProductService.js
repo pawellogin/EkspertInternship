@@ -32,13 +32,15 @@ class ProductService {
     async postProduct(image, name, price, stock) {
         const userToken = AuthHeader().Authorization;
         try {
-            const response = await axios.post(API_URL + "products", {
-                image: image,
-                name: name,
-                price: price,
-                stock: stock
-            }, {
+            const formData = new FormData();
+            formData.append('image', image); 
+            formData.append('name', name);
+            formData.append('price', price);
+            formData.append('stock', stock);
+    
+            const response = await axios.post(API_URL + "products", formData, {
                 headers: {
+                    'Content-Type': 'multipart/form-data', 
                     Authorization: userToken
                 }  
             });
