@@ -108,7 +108,7 @@ public class CartController {
         Optional<User> currentUser = userService.findByUsername(currentUserUsername);
 
         if (currentUser.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else {
             Long userId = currentUser.get().getId();
 
