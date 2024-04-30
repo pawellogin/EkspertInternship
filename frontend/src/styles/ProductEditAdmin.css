@@ -8,3 +8,17 @@
     padding: 1rem;
     margin: auto;
 }
+
+.product-edit-admin-delete {
+    font-size: 40px;
+    color: darkgrey;
+    transition: transform 0.15s ease, color 0.15s ease;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.product-edit-admin-delete:hover {
+    font-size: 40px;
+    color: rgb(80,80,80);
+    transform: scale(1.10);
+}
