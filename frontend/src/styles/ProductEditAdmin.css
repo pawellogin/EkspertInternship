@@ -14,7 +14,7 @@
 }
 
 .product-edit-admin-delete:hover {
-    transform: scale(1.10);
+    transform: scale(1.07);
 }
 
 .product-edit-admin-save{
@@ -27,7 +27,7 @@
 
 .product-edit-admin-form-inputs {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
 }
 
 .product-edit-admin-form-inputs * {

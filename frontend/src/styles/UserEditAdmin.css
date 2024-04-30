@@ -8,3 +8,51 @@
     padding: 1rem;
     margin: auto;
 }
+
+.user-edit-admin-form-inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-edit-admin-input {
+    margin: 4px;
+}
+
+.user-edit-admin-save {
+    margin: 8px;
+    transition: transform 0.15s ease;
+}
+
+.user-edit-admin-save:hover {
+    transform: scale(1.07);
+}
+
+.user-edit-admin-user-saved {
+    margin: 8px;
+    transition: transform 0.15s ease;
+}
+
+.user-edit-admin-user-saved:hover {
+    background-color: #28a745;
+    transform: scale(1.07);
+}
+
+.user-edit-admin-user-saved:active {
+    background-color: #28a745 !important;
+}
+
+.user-edit-admin-form-buttons { 
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-edit-admin-delete {
+    width: fit-content; /* Adjust the width to fit the content */
+    height: fit-content; /* Adjust the height to fit the content */
+    margin: 8px;
+    transition: transform 0.15s ease;
+}
+
+.user-edit-admin-delete:hover {
+    transform: scale(1.07);
+}

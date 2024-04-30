@@ -25,7 +25,32 @@ class UserService {
         Authorization: userToken
       }
     })
-    }
+  }
+
+  patchUser(userId, username, firstName, lastName, userRole, image) {
+    const userToken = AuthHeader().Authorization;
+    return axios.patch(API_URL + "users/" + userId, {
+      id:userId,
+      username: username,
+      firstName: firstName,
+      lastName: lastName,
+      userRole: userRole,
+    },{
+      headers: {
+        Authorization: userToken
+      }
+    })
+  }
+
+  deleteUser(userId){
+    const userToken = AuthHeader().Authorization;
+    return axios.delete(API_URL + "users/" + userId, {
+      headers: {
+        Authorization: userToken
+      }
+    })
+  }
+
 }
 
 export default new UserService();

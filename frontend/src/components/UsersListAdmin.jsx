@@ -78,14 +78,14 @@ const UsersPageAdmin = () => {
                     <button
                         className="btn btn-secondary dropdown-toggle"
                         type="button"
-                        id="productsPerPage"
+                        id="usersPerPage"
                         data-bs-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false"
                         >
-                            Products Per Page
+                            Users Per Page
                     </button>
-                    <div className="dropdown-menu" aria-labelledby='productsPerPage'>
+                    <div className="dropdown-menu" aria-labelledby='usersPerPage'>
                         <button className="dropdown-item" type='button' onClick={() => setUsersPerPage(3)}>3</button>
                         <button className="dropdown-item" type='button' onClick={() => setUsersPerPage(5)}>5</button>
                         <button className="dropdown-item" type='button' onClick={() => setUsersPerPage(15)}>15</button>
