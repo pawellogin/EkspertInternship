@@ -10,15 +10,50 @@
 }
 
 .product-edit-admin-delete {
-    font-size: 40px;
-    color: darkgrey;
     transition: transform 0.15s ease, color 0.15s ease;
-    margin-left: 8px;
-    margin-right: 8px;
 }
 
 .product-edit-admin-delete:hover {
-    font-size: 40px;
-    color: rgb(80,80,80);
     transform: scale(1.10);
+}
+
+.product-edit-admin-save{
+    transition: transform 0.15s ease;
+}
+
+.product-edit-admin-save:hover {
+    transform: scale(1.10);
+}
+
+.product-edit-admin-form-inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-edit-admin-form-inputs * {
+    margin: 8px;
+}
+
+.product-edit-admin-form-buttons {
+    display: flex;
+    flex-direction: row;
+    margin: 8px;
+    justify-content: space-between;
+}
+
+.product-edit-admin-product-saved{
+    background-color: #28a745
+}
+
+.product-edit-admin-product-saved:hover{
+    background-color: #28a745
+}
+
+.product-edit-admin-product-saved:active{
+    background-color: #28a745 !important;
+}
+
+.product-edit-admin-alert {
+    margin: 8px;
+    text-align: center;
 }

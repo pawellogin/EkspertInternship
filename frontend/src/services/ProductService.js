@@ -49,13 +49,36 @@ class ProductService {
         }
     }
 
+    async patchProduct(productId, name, price, stock, image) {
+        const userToken = AuthHeader().Authorization;
+        try{
+            return axios.patch(API_URL + "products/" + productId, {
+                id: productId,
+                image: image,
+                name: name,
+                price: price,
+                stock: stock
+            }, {
+                headers: {
+                    Authorization: userToken
+                }  
+            });
+        }catch(error){
+            console.log("Error while updating partially product", error);
+        }
+    }
+
     async deleteProduct(productId){
         const userToken = AuthHeader().Authorization;
-        return axios.delete(API_URL + "products/" + productId, {
-            headers: {
-                Authorization: userToken
-            }
-        })
+        try{
+            return axios.delete(API_URL + "products/" + productId, {
+                headers: {
+                    Authorization: userToken
+                }
+            })
+        }catch(error){
+            console.log("Error while deleting product", error);
+        }
     }
 }
 
