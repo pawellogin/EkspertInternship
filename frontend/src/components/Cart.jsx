@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { button } from '@nextui-org/react';
+import ProductImage from './ProductImage';
 
 function Cart() {
     const [cartItems, setCartItems] = useState([]);
@@ -109,9 +110,14 @@ function Cart() {
                     {cartItems.map(cartItem => (
                         <div key={cartItem.id} className="card cart-cart">
                             <Link to={`/products/${cartItem.productId}`} className="card-body cart-card-body">
-                                <h5 className="card-text">{cartItem.productName}</h5>
-                                <p className="card-text">Price: {cartItem.productPrice}$</p>
-                                <p className="card-text">Price total: {(cartItem.productPrice * cartItem.productAmount).toFixed(2)}</p>
+                                <div className="">
+                                    <h5 className="card-text">{cartItem.productName}</h5>
+                                    <p className="card-text">Price: {cartItem.productPrice}$</p>
+                                    <p className="card-text">Price total: {(cartItem.productPrice * cartItem.productAmount).toFixed(2)}</p>
+                                </div>
+                                <ProductImage className="cart-card-body-image" productId={cartItem.productId}/>
+
+
                             </Link>
                             <div className='cart-buttons'>
                                 <div className="cart-buttons-amount">

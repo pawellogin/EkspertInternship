@@ -16,6 +16,9 @@
 }
 
 .cart-card-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     border-style: solid;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
@@ -111,4 +114,11 @@
     border-radius: 4px;
     height: 64px;
     font-weight: bold;
+}
+
+.cart-card-body-image {
+    border: 2px solid lightgray;
+    border-radius: 16px;
+    width: 100px;
+    height: 100px;
 }
