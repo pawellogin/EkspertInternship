@@ -39,7 +39,9 @@ function App() {
               <Route path="manageUsers/:userId" element={<UserEditAdmin />} />
               <Route path="/manageProducts/addNewProduct" element={<AddProductAdmin />} />
               <Route path="products/:productId" element={<ProductListDetails />} />
+              <Route path="/register" element={<RegisterForm />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/login" element={<LoginForm />} />
             </Routes>
           ) : (
             <Routes>
