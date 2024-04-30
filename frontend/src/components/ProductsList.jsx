@@ -97,6 +97,17 @@ function ProductList() {
         },1000)
     }
 
+    const sortProducts = (order) => {
+        const sortedProducts = [...products].sort((a, b) => {
+            if (order === 'asc') {
+                return a.price - b.price;
+            } else {
+                return b.price - a.price;
+            }
+        });
+        setProducts(sortedProducts);
+    };
+
     useEffect(() => {
         fetchDataByPage();
     }, [currentPage, productsPerPage]);
@@ -126,6 +137,23 @@ function ProductList() {
                         <button className="dropdown-item" type='button' onClick={() => setProductsPerPage(5)}>5</button>
                         <button className="dropdown-item" type='button' onClick={() => setProductsPerPage(10)}>10</button>
                         <button className="dropdown-item" type='button' onClick={() => setProductsPerPage(30)}>30</button>
+                    </div>
+                </div>
+
+                <div className="dropdown">
+                    <button
+                        className="btn btn-secondary dropdown-toggle"
+                        type="button"
+                        id="sort"
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        >
+                            Sort
+                    </button>
+                    <div className="dropdown-menu" aria-labelledby='sort'>
+                        <button className="dropdown-item" type='button' onClick={() => sortProducts('asc')}>Price: From lowest</button>
+                        <button className="dropdown-item" type='button' onClick={() => sortProducts('desc')}>Price: From highest</button>
                     </div>
                 </div>
 
