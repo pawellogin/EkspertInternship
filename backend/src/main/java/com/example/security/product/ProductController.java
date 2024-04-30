@@ -9,7 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @RestController
@@ -28,15 +31,44 @@ public class ProductController {
     }
 
     @PostMapping(path = "/products")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto product){
-        ProductEntity productEntity = productMapper.mapToEntityFromDto(product);
-        if(productService.findOneByName(productEntity.getName()).isPresent()){
+    @PreAuthorize("hasAuthority('product:write')")
+    public ResponseEntity<ProductDto> createProduct(
+            @RequestParam("image") MultipartFile image,
+            @RequestParam("name") String name,
+            @RequestParam("price") BigDecimal price,
+            @RequestParam("stock") Float stock) {
+        // Check if a product with the same name already exists
+        if (productService.findOneByName(name).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
-        ProductEntity savedProductEntity = productService.save(productEntity);
-        return new ResponseEntity<>(productMapper.mapFromEntityToDto(savedProductEntity), HttpStatus.CREATED);
+        // Check if an image file is provided
+        if (image == null || image.isEmpty()) {
+//            return new ResponseEntity<>("Image file is required", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            // Convert the image file to a byte array
+            byte[] imageData = image.getBytes();
+
+            // Create a new ProductEntity and set its properties
+            ProductEntity productEntity = new ProductEntity();
+            productEntity.setName(name);
+            productEntity.setPrice(price);
+            productEntity.setStock(stock);
+            productEntity.setImage(imageData);
+
+            // Save the product entity
+            ProductEntity savedProductEntity = productService.save(productEntity);
+
+            // Map the saved product entity to a DTO and return it
+            ProductDto savedProductDto = productMapper.mapFromEntityToDto(savedProductEntity);
+            return new ResponseEntity<>(savedProductDto, HttpStatus.CREATED);
+        } catch (IOException e) {
+//            return new ResponseEntity<>("Failed to process image file", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping(path ="/products")
@@ -53,7 +85,9 @@ public class ProductController {
         Optional<ProductEntity> foundProduct = productService.findOne(id);
 
         if(foundProduct.isPresent()){
-            ProductDto productDto = productMapper.mapFromEntityToDto(foundProduct.get());
+            ProductEntity productEntity = foundProduct.get();
+            ProductDto productDto = productMapper.mapFromEntityToDto(productEntity);
+            productDto.setImage(productEntity.getImage()); // Set the image data in the DTO
             return new ResponseEntity<>(productDto, HttpStatus.OK);
         } else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

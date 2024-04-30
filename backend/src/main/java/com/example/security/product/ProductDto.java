@@ -12,7 +12,7 @@ public class ProductDto {
 
     private Float stock;
 
-    @Lob
+//    @Lob
     private byte[] image;
 
     public long getId() {
