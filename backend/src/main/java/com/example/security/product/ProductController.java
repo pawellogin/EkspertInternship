@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/v1/")
 public class ProductController {
 
@@ -90,23 +90,25 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
+        Optional<ProductEntity> entityWithTheSameName = productService.findOneByName(productDto.getName());
+        if(entityWithTheSameName.isPresent()) {
+            if(entityWithTheSameName.get().getId() != productDto.getId()){
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
 
-        // Update name if provided
-        if (productDto.getName() != null) {
+        if (productDto.getName() != null ) {
             existingProductEntity.get().setName(productDto.getName());
         }
 
-        // Update price if provided
         if (productDto.getPrice() != null) {
             existingProductEntity.get().setPrice(productDto.getPrice());
         }
 
-        // Update stock if provided
         if (productDto.getStock() != null) {
             existingProductEntity.get().setStock(productDto.getStock());
         }
 
-        // Update image if provided
         if (productDto.getImage() != null) {
             existingProductEntity.get().setImage(productDto.getImage());
         }
