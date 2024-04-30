@@ -62,3 +62,16 @@ input::-webkit-inner-spin-button {
 .product-list-details-alert-added-product:active {
     background-color: #28a745 !important;
 }
+
+.product-list-details-image {
+    border: 2px solid lightgray;
+    border-radius: 16px;
+    width: 100px;
+    height: 100px;
+}
+
+.product-list-details-product{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

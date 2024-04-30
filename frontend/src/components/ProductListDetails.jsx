@@ -2,10 +2,11 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useState } from 'react';
 import ProductService from '../services/ProductService';
+import CartService from '../services/CartService';
+import ProductImage from './ProductImage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import '../styles/ProductListDetails.css'
-import CartService from '../services/CartService';
 
 function ProductListDetails() {
     
@@ -58,10 +59,13 @@ function ProductListDetails() {
         <div className='card-columns'>
             {product && (
                 <div className="card">
-                    <div className='card-body'>
-                        <h5 className="card-title">{product.name}</h5>
-                        <p className="card-text">Pice: {product.price}$</p>
-                        <p className="card-text">Stock: {product.stock}</p>
+                    <div className='card-body product-list-details-product'>
+                        <div className="">
+                            <h5 className="card-title">{product.name}</h5>
+                            <p className="card-text">Pice: {product.price}$</p>
+                            <p className="card-text">Stock: {product.stock}</p>
+                        </div>
+                        <ProductImage className="product-list-details-image" productId={productId}/>
                     </div>
                     <div className='product-list-details-stock-buttons'>
                         <button className='btn btn-secondary' onClick={decreaseStock}><FontAwesomeIcon icon={faMinus} /></button>
